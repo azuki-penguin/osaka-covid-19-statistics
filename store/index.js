@@ -54,15 +54,15 @@ export const mutations = {
   },
   calculateDailyPatientTotalComparison(state) {
     state.dailyPatientTotalComparison = state.dailyPatientTotal
-      .diff((x, y) => y.count - x.count)
+      .diff((x, y) => ({ date: y.date, count: y.count - x.count }))
   },
   calculateDailyPatientRatioComparison(state) {
     state.dailyPatientRatioComparison = state.dailyPatientRatio
-      .diff((x, y) => y.count - x.count)
+      .diff((x, y) => ({ date: y.date, count: y.count - x.count }))
   },
   calculateDailyInspectionTotalComparison(state) {
     state.dailyInspectionTotalComparison = state.dailyInspectionTotal
-      .diff((x, y) => y.count - x.count)
+      .diff((x, y) => ({ date: y.date, count: y.count - x.count }))
   },
 };
 
