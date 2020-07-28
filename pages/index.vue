@@ -25,13 +25,22 @@
           感染者数の推移
         </v-card-title>
         <daily-patient-total-line-chart :data="dailyPatientTotal" />
+       <v-card>
+        <v-card-title class="">
+          検査数と陽性者数の推移
+        </v-card-title>
+        <daily-inspection-total-combo-chart
+          :patientsData="dailyPatientTotal"
+          :inspectionsData="dailyInspectionTotal" />
       </v-card>
+     </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import DailyPatientTotalLineChart from '~/components/DailyPatientTotalLineChart.vue';
+import DailyInspectionTotalComboChart from '~/components/DailyInspectionTotalComboChart.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
@@ -39,13 +48,17 @@ export default {
     ...mapActions(['loadData']),
   },
   computed: {
-    ...mapState(['dailyPatientTotal']),
+    ...mapState([
+      'dailyPatientTotal',
+      'dailyInspectionTotal',
+    ]),
   },
   mounted() {
     this.loadData();
   },
   components: {
     DailyPatientTotalLineChart,
+    DailyInspectionTotalComboChart,
   },
 };
 </script>
