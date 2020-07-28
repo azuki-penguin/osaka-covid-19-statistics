@@ -21,25 +21,25 @@
       </v-card>
 
       <v-card>
-        <v-card-title class="">
+        <v-card-title class="text-subtitle-1">
           感染者数の推移
         </v-card-title>
         <daily-patient-total-line-chart :data="dailyPatientTotal" />
-       <v-card>
-        <v-card-title class="">
+      </v-card>
+      <v-card>
+        <v-card-title class="text-subtitle-1">
           検査数と陽性者数の推移
         </v-card-title>
         <daily-inspection-total-combo-chart
           :patientsData="dailyPatientTotal"
           :inspectionsData="dailyInspectionTotal" />
-        <v-card>
-        <v-card-title class="">
+      </v-card>
+      <v-card>
+        <v-card-title class="text-subtitle-1">
           陽性者率の推移
         </v-card-title>
         <daily-patient-ratio-line-chart :data="dailyPatientRatio" />
       </v-card>
-     </v-card>
-     </v-card>
     </v-flex>
   </v-layout>
 </template>
