@@ -39,7 +39,14 @@
           陽性者率の推移
         </v-card-title>
         <daily-patient-ratio-line-chart :data="dailyPatientRatio" />
+       <v-card>
+        <v-card-title class="text-subtitle-1">
+          陽性者の増減の推移
+        </v-card-title>
+        <daily-patient-total-comparison-line-chart
+          :data="dailyPatientTotalComparison" />
       </v-card>
+     </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -48,6 +55,7 @@
 import DailyPatientTotalLineChart from '~/components/DailyPatientTotalLineChart.vue';
 import DailyInspectionTotalComboChart from '~/components/DailyInspectionTotalComboChart.vue';
 import DailyPatientRatioLineChart from '~/components/DailyPatientRatioLineChart.vue';
+import DailyPatientTotalComparisonLineChart from '~/components/DailyPatientTotalComparisonLineChart.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
@@ -59,6 +67,7 @@ export default {
       'dailyPatientTotal',
       'dailyInspectionTotal',
       'dailyPatientRatio',
+      'dailyPatientTotalComparison',
     ]),
   },
   mounted() {
@@ -68,6 +77,7 @@ export default {
     DailyPatientTotalLineChart,
     DailyInspectionTotalComboChart,
     DailyPatientRatioLineChart,
+    DailyPatientTotalComparisonLineChart,
   },
 };
 </script>
