@@ -24,7 +24,7 @@
         <v-card-title class="">
           感染者数の推移
         </v-card-title>
-        <daily-patient-total-line-chart />
+        <daily-patient-total-line-chart :data="dailyPatientTotal" />
       </v-card>
     </v-flex>
   </v-layout>
@@ -32,11 +32,14 @@
 
 <script>
 import DailyPatientTotalLineChart from '~/components/DailyPatientTotalLineChart.vue';
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   methods: {
     ...mapActions(['loadData']),
+  },
+  computed: {
+    ...mapState(['dailyPatientTotal']),
   },
   mounted() {
     this.loadData();

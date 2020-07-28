@@ -1,13 +1,15 @@
 <script>
 import * as dateFns from 'date-fns';
 import { Line } from 'vue-chartjs';
-import { mapState } from 'vuex';
 
 export default {
   extends: Line,
+  props: {
+    data: Array,
+  },
   data() {
     return {
-      options: {
+      chartOptions: {
         scales: {
           xAxes: [
             {
@@ -34,10 +36,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(['dailyPatientTotal']),
-    data() {
+    chartData() {
       return {
-        labels: this.dailyPatientTotal.map(
+        labels: this.data.map(
           x => dateFns.format(
             dateFns.parseJSON(x.date),
             'yyyy/MM/dd'
@@ -47,7 +48,7 @@ export default {
           {
             label: '感染者数',
             lineTension: 0,
-            data: this.dailyPatientTotal.map(x => x.count),
+            data: this.data.map(x => x.count),
             borderColor: 'rgba(255, 255, 255, 1)',
           }
         ],
@@ -55,7 +56,12 @@ export default {
     },
   },
   mounted() {
-    this.renderChart(this.data, this.options);
+    this.renderChart(this.chartData, this.chartOptions);
+  },
+  watch: {
+    data() {
+      this.renderChart(this.chartData, this.chartOptions);
+    },
   },
 };
 </script>
