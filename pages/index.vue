@@ -26,6 +26,7 @@
         </v-card-title>
         <daily-patient-total-line-chart :data="dailyPatientTotal" />
       </v-card>
+
       <v-card>
         <v-card-title class="text-subtitle-1">
           検査数と陽性者数の推移
@@ -34,19 +35,22 @@
           :patientsData="dailyPatientTotal"
           :inspectionsData="dailyInspectionTotal" />
       </v-card>
+
       <v-card>
         <v-card-title class="text-subtitle-1">
           陽性者率の推移
         </v-card-title>
         <daily-patient-ratio-line-chart :data="dailyPatientRatio" />
-       <v-card>
+      </v-card>
+
+      <v-card>
         <v-card-title class="text-subtitle-1">
           陽性者の増減の推移
         </v-card-title>
         <daily-patient-total-comparison-line-chart
           :data="dailyPatientTotalComparison" />
       </v-card>
-     </v-card>
+
       <v-card>
         <v-card-title class="text-subtitle-1">
           検査数の増減と陽性者数の増減推移
@@ -55,6 +59,7 @@
           :patientsData="dailyPatientTotalComparison"
           :inspectionsData="dailyInspectionTotalComparison" />
       </v-card>
+
       <v-card>
         <v-card-title class="text-subtitle-1">
           陽性者率の増減推移

@@ -6,7 +6,6 @@
       </v-container>
     </v-content>
     <v-footer
-      :absolute="!fixed"
       app
     >
       <v-spacer />
