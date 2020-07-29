@@ -45,7 +45,7 @@ export default {
           {
             label: '感染者率',
             lineTension: 0,
-            data: this.data.map(x => Math.round(x.count * 100)),
+            data: this.data.map(x => Math.round(x.count * 10000) / 100),
             borderColor: 'rgba(255, 255, 255, 1)',
           }
         ],
