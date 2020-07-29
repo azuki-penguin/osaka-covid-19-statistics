@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as dateFns from 'date-fns';
 
 const DATA_JSON_URL = 'https://raw.githubusercontent.com/codeforosaka/covid19/master/data/data.json';
 
@@ -26,20 +27,20 @@ export function state() {
 export const mutations = {
   setPatientTotal(state, { data }) {
     state.dailyPatientTotal = data.map(x => ({
-      date: x["日付"],
+      date: dateFns.parseJSON(x["日付"]),
       count: x["小計"],
     }));
   },
   setInspectionTotal(state, { data }) {
     state.dailyInspectionTotal = data.map(x => ({
-      date: x["日付"],
+      date: dateFns.parseJSON(x["日付"]),
       count: x["小計"],
     }));
   },
   calculateDailyPatientRatio(state) {
     state.dailyPatientRatio = state.dailyInspectionTotal.map(x => {
       const index = state.dailyPatientTotal
-        .findIndex(y => y.date === x.date);
+        .findIndex(y => dateFns.isEqual(y.date, x.date));
       if (index < 0) {
         console.error(`the patient data not found at ${x.date}.`);
         return;

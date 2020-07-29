@@ -40,10 +40,7 @@ export default {
     chartData() {
       return {
         labels: this.inspectionsData.map(
-          x => dateFns.format(
-            dateFns.parseJSON(x.date),
-            'yyyy/MM/dd'
-          )
+          x => dateFns.format(x.date, 'yyyy/MM/dd')
         ),
         datasets: [
           {

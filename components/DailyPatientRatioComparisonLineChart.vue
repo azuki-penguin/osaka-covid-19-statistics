@@ -39,10 +39,7 @@ export default {
     chartData() {
       return {
         labels: this.data.map(
-          x => dateFns.format(
-            dateFns.parseJSON(x.date),
-            'yyyy/MM/dd'
-          )
+          x => dateFns.format(x.date, 'yyyy/MM/dd')
         ),
         datasets: [
           {
