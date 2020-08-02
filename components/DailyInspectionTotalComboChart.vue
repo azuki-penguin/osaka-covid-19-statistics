@@ -45,6 +45,7 @@ export default {
         datasets: [
           {
             label: '検査数',
+            type:'line',
             data: this.inspectionsData.map(x => x.count),
             backgroundColor: 'rgba(48, 128, 255, 1)',
             order: 2,

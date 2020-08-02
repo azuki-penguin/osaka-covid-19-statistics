@@ -22,88 +22,101 @@
 
       <v-card>
         <v-card-title class="text-subtitle-1">
-          感染者数の推移
+          感染者数の推移 (日別)
         </v-card-title>
-        <daily-patient-total-line-chart :data="dailyPatientTotal" />
+        <line-chart
+          :chartData="dailyPatientTotalDataSets"
+          :chartOptions="dailyPatientTotalOptions" />
       </v-card>
 
       <v-card>
         <v-card-title class="text-subtitle-1">
-          検査数と陽性者数の推移
+          検査数と陽性者数の推移 (日別)
         </v-card-title>
-        <daily-inspection-total-combo-chart
-          :patientsData="dailyPatientTotal"
-          :inspectionsData="dailyInspectionTotal" />
+        <combo-chart
+          :chartData="dailyInspectionTotalDataSets"
+          :chartOptions="dailyInspectionTotalOptions" />
       </v-card>
 
       <v-card>
         <v-card-title class="text-subtitle-1">
-          陽性者率の推移
+          陽性者率の推移 (日別)
         </v-card-title>
-        <daily-patient-ratio-line-chart :data="dailyPatientRatio" />
+        <line-chart
+          :chartData="dailyPatientRatioDataSets"
+          :chartOptions="dailyPatientRatioOptions" />
       </v-card>
 
       <v-card>
         <v-card-title class="text-subtitle-1">
-          陽性者の増減の推移
+          陽性者の増減の推移 (日別)
         </v-card-title>
-        <daily-patient-total-comparison-line-chart
-          :data="dailyPatientTotalComparison" />
+        <line-chart
+          :chartData="dailyPatientTotalComparisonDataSets"
+          :chartOptions="dailyPatientTotalComparisonOptions" />
       </v-card>
 
       <v-card>
         <v-card-title class="text-subtitle-1">
-          検査数の増減と陽性者数の増減推移
+          検査数の増減と陽性者数の増減推移 (日別)
         </v-card-title>
-        <daily-inspection-total-comparison-combo-chart
-          :patientsData="dailyPatientTotalComparison"
-          :inspectionsData="dailyInspectionTotalComparison" />
+        <combo-chart
+          :chartData="dailyInspectionTotalComparisonDataSets"
+          :chartOptions="dailyInspectionTotalComparisonOptions" />
       </v-card>
 
       <v-card>
         <v-card-title class="text-subtitle-1">
-          陽性者率の増減推移
+          陽性者率の増減推移 (日別)
         </v-card-title>
-        <daily-patient-ratio-comparison-line-chart
-          :data="dailyPatientRatioComparison" />
+        <line-chart
+          :chartData="dailyPatientRatioComparisonDataSets"
+          :chartOptions="dailyPatientRatioComparisonOptions" />
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import DailyPatientTotalLineChart from '~/components/DailyPatientTotalLineChart.vue';
-import DailyInspectionTotalComboChart from '~/components/DailyInspectionTotalComboChart.vue';
-import DailyPatientRatioLineChart from '~/components/DailyPatientRatioLineChart.vue';
-import DailyPatientTotalComparisonLineChart from '~/components/DailyPatientTotalComparisonLineChart.vue';
-import DailyInspectionTotalComparisonComboChart from '~/components/DailyInspectionTotalComparisonComboChart.vue';
-import DailyPatientRatioComparisonLineChart from '~/components/DailyPatientRatioComparisonLineChart.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, createNamespacedHelpers } from 'vuex';
+import LineChart from '~/components/LineChart.vue';
+import ComboChart from '~/components/ComboChart.vue';
+
+const {
+  mapGetters: mapGettersOfDaily,
+  mapActions: mapActionsOfDaily,
+} = createNamespacedHelpers('daily');
 
 export default {
   methods: {
     ...mapActions(['loadData']),
+    ...mapActionsOfDaily({
+      loadDailyData: 'loadData',
+    }),
   },
   computed: {
-    ...mapState([
-      'dailyPatientTotal',
-      'dailyInspectionTotal',
-      'dailyPatientRatio',
-      'dailyPatientTotalComparison',
-      'dailyInspectionTotalComparison',
-      'dailyPatientRatioComparison',
+    ...mapGettersOfDaily([
+      'dailyPatientTotalDataSets',
+      'dailyPatientTotalOptions',
+      'dailyInspectionTotalDataSets',
+      'dailyInspectionTotalOptions',
+      'dailyPatientRatioDataSets',
+      'dailyPatientRatioOptions',
+      'dailyPatientTotalComparisonDataSets',
+      'dailyPatientTotalComparisonOptions',
+      'dailyInspectionTotalComparisonDataSets',
+      'dailyInspectionTotalComparisonOptions',
+      'dailyPatientRatioComparisonDataSets',
+      'dailyPatientRatioComparisonOptions',
     ]),
   },
-  mounted() {
-    this.loadData();
+  async mounted() {
+    await this.loadData();
+    this.loadDailyData();
   },
   components: {
-    DailyPatientTotalLineChart,
-    DailyInspectionTotalComboChart,
-    DailyPatientRatioLineChart,
-    DailyPatientTotalComparisonLineChart,
-    DailyInspectionTotalComparisonComboChart,
-    DailyPatientRatioComparisonLineChart,
+    LineChart,
+    ComboChart,
   },
 };
 </script>
