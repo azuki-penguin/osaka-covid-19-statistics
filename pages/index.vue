@@ -73,6 +73,60 @@
           :chartData="dailyPatientRatioComparisonDataSets"
           :chartOptions="dailyPatientRatioComparisonOptions" />
       </v-card>
+ 
+      <v-card>
+        <v-card-title class="text-subtitle-1">
+          週平均の陽性者数の推移
+        </v-card-title>
+        <line-chart
+          :chartData="weeklyPatientTotalAverageDataSets"
+          :chartOptions="weeklyPatientTotalAverageOptions" />
+      </v-card>
+
+      <v-card>
+        <v-card-title class="text-subtitle-1">
+          週平均の検査数と週平均の陽性者数の推移
+        </v-card-title>
+        <combo-chart
+          :chartData="weeklyInspectionTotalAverageDataSets"
+          :chartOptions="weeklyInspectionTotalAverageOptions" />
+      </v-card>
+ 
+      <v-card>
+        <v-card-title class="text-subtitle-1">
+          陽性者率の推移 (週別)
+        </v-card-title>
+        <line-chart
+          :chartData="weeklyPatientRatioDataSets"
+          :chartOptions="weeklyPatientRatioOptions" />
+      </v-card>
+
+      <v-card>
+        <v-card-title class="text-subtitle-1">
+          週平均の陽性者数の増減推移
+        </v-card-title>
+        <line-chart
+          :chartData="weeklyPatientTotalAverageComparisonDataSets"
+          :chartOptions="weeklyPatientTotalAverageComparisonOptions" />
+      </v-card>
+
+      <v-card>
+        <v-card-title class="text-subtitle-1">
+          週平均の検査数と週平均の陽性者数の増減推移
+        </v-card-title>
+        <combo-chart
+          :chartData="weeklyInspectionTotalAverageComparisonDataSets"
+          :chartOptions="weeklyInspectionTotalAverageComparisonOptions" />
+      </v-card>
+ 
+      <v-card>
+        <v-card-title class="text-subtitle-1">
+          陽性者率の増減推移 (週別)
+        </v-card-title>
+        <line-chart
+          :chartData="weeklyPatientRatioComparisonDataSets"
+          :chartOptions="weeklyPatientRatioComparisonOptions" />
+      </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -87,11 +141,19 @@ const {
   mapActions: mapActionsOfDaily,
 } = createNamespacedHelpers('daily');
 
+const {
+  mapGetters: mapGettersOfWeekly,
+  mapActions: mapActionsOfWeekly,
+} = createNamespacedHelpers('weekly');
+
 export default {
   methods: {
     ...mapActions(['loadData']),
     ...mapActionsOfDaily({
       loadDailyData: 'loadData',
+    }),
+    ...mapActionsOfWeekly({
+      loadWeeklyData: 'loadData',
     }),
   },
   computed: {
@@ -109,10 +171,25 @@ export default {
       'dailyPatientRatioComparisonDataSets',
       'dailyPatientRatioComparisonOptions',
     ]),
+    ...mapGettersOfWeekly([
+      'weeklyPatientRatioDataSets',
+      'weeklyPatientRatioOptions',
+      'weeklyPatientRatioComparisonDataSets',
+      'weeklyPatientRatioComparisonOptions',
+      'weeklyPatientTotalAverageDataSets',
+      'weeklyPatientTotalAverageOptions',
+      'weeklyInspectionTotalAverageDataSets',
+      'weeklyInspectionTotalAverageOptions',
+      'weeklyPatientTotalAverageComparisonDataSets',
+      'weeklyPatientTotalAverageComparisonOptions',
+      'weeklyInspectionTotalAverageComparisonDataSets',
+      'weeklyInspectionTotalAverageComparisonOptions',
+    ])
   },
   async mounted() {
     await this.loadData();
     this.loadDailyData();
+    this.loadWeeklyData();
   },
   components: {
     LineChart,
