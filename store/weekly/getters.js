@@ -67,7 +67,7 @@ export default {
         yAxes: [
           {
             scaleLabel: { display: true, labelString: '感染者率の増減 (%)' },
-            ticks: { beginAtZero: true, stepSize: 10 },
+            ticks: { beginAtZero: true, stepSize: 1 },
           },
         ],
       },
@@ -178,7 +178,7 @@ export default {
         yAxes: [
           {
             scaleLabel: { display: true, labelString: '感染者数の増減 (人)' },
-            ticks: { beginAtZero: true, stepSize: 100 },
+            ticks: { beginAtZero: true, stepSize: 10 },
           },
         ],
       },
