@@ -1,69 +1,73 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          感染者数の推移 (日別)
-        </v-card-title>
-        <line-chart
-          :chartData="dailyPatientTotalDataSets"
-          :chartOptions="dailyPatientTotalOptions" />
-      </v-card>
+  <v-container>
+    <v-row justify="center">
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            感染者数の推移 (日別)
+          </v-card-title>
+          <line-chart
+            :chartData="dailyPatientTotalDataSets"
+            :chartOptions="dailyPatientTotalOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          検査数と陽性者数の推移 (日別)
-        </v-card-title>
-        <combo-chart
-          :chartData="dailyInspectionTotalDataSets"
-          :chartOptions="dailyInspectionTotalOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            検査数と陽性者数の推移 (日別)
+          </v-card-title>
+          <combo-chart
+            :chartData="dailyInspectionTotalDataSets"
+            :chartOptions="dailyInspectionTotalOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          陽性者率の推移 (日別)
-        </v-card-title>
-        <line-chart
-          :chartData="dailyPatientRatioDataSets"
-          :chartOptions="dailyPatientRatioOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            陽性者率の推移 (日別)
+          </v-card-title>
+          <line-chart
+            :chartData="dailyPatientRatioDataSets"
+            :chartOptions="dailyPatientRatioOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          陽性者の増減の推移 (日別)
-        </v-card-title>
-        <line-chart
-          :chartData="dailyPatientTotalComparisonDataSets"
-          :chartOptions="dailyPatientTotalComparisonOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            陽性者の増減の推移 (日別)
+          </v-card-title>
+          <line-chart
+            :chartData="dailyPatientTotalComparisonDataSets"
+            :chartOptions="dailyPatientTotalComparisonOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          検査数の増減と陽性者数の増減推移 (日別)
-        </v-card-title>
-        <combo-chart
-          :chartData="dailyInspectionTotalComparisonDataSets"
-          :chartOptions="dailyInspectionTotalComparisonOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            検査数の増減と陽性者数の増減推移 (日別)
+          </v-card-title>
+          <combo-chart
+            :chartData="dailyInspectionTotalComparisonDataSets"
+            :chartOptions="dailyInspectionTotalComparisonOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          陽性者率の増減推移 (日別)
-        </v-card-title>
-        <line-chart
-          :chartData="dailyPatientRatioComparisonDataSets"
-          :chartOptions="dailyPatientRatioComparisonOptions" />
-      </v-card>
-    </v-flex>
-  </v-layout>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            陽性者率の増減推移 (日別)
+          </v-card-title>
+          <line-chart
+            :chartData="dailyPatientRatioComparisonDataSets"
+            :chartOptions="dailyPatientRatioComparisonOptions" />
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

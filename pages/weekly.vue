@@ -1,69 +1,73 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          週平均の陽性者数の推移
-        </v-card-title>
-        <line-chart
-          :chartData="weeklyPatientTotalAverageDataSets"
-          :chartOptions="weeklyPatientTotalAverageOptions" />
-      </v-card>
+  <v-container>
+    <v-row justify="center">
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            週平均の陽性者数の推移
+          </v-card-title>
+          <line-chart
+            :chartData="weeklyPatientTotalAverageDataSets"
+            :chartOptions="weeklyPatientTotalAverageOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          週平均の検査数と週平均の陽性者数の推移
-        </v-card-title>
-        <combo-chart
-          :chartData="weeklyInspectionTotalAverageDataSets"
-          :chartOptions="weeklyInspectionTotalAverageOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            週平均の検査数と週平均の陽性者数の推移
+          </v-card-title>
+          <combo-chart
+            :chartData="weeklyInspectionTotalAverageDataSets"
+            :chartOptions="weeklyInspectionTotalAverageOptions" />
+        </v-card>
+      </v-col>
  
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          陽性者率の推移 (週別)
-        </v-card-title>
-        <line-chart
-          :chartData="weeklyPatientRatioDataSets"
-          :chartOptions="weeklyPatientRatioOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            陽性者率の推移 (週別)
+          </v-card-title>
+          <line-chart
+            :chartData="weeklyPatientRatioDataSets"
+            :chartOptions="weeklyPatientRatioOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          週平均の陽性者数の増減推移
-        </v-card-title>
-        <line-chart
-          :chartData="weeklyPatientTotalAverageComparisonDataSets"
-          :chartOptions="weeklyPatientTotalAverageComparisonOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            週平均の陽性者数の増減推移
+          </v-card-title>
+          <line-chart
+            :chartData="weeklyPatientTotalAverageComparisonDataSets"
+            :chartOptions="weeklyPatientTotalAverageComparisonOptions" />
+        </v-card>
+      </v-col>
 
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          週平均の検査数と週平均の陽性者数の増減推移
-        </v-card-title>
-        <combo-chart
-          :chartData="weeklyInspectionTotalAverageComparisonDataSets"
-          :chartOptions="weeklyInspectionTotalAverageComparisonOptions" />
-      </v-card>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            週平均の検査数と週平均の陽性者数の増減推移
+          </v-card-title>
+          <combo-chart
+            :chartData="weeklyInspectionTotalAverageComparisonDataSets"
+            :chartOptions="weeklyInspectionTotalAverageComparisonOptions" />
+        </v-card>
+      </v-col>
  
-      <v-card>
-        <v-card-title class="text-subtitle-1">
-          陽性者率の増減推移 (週別)
-        </v-card-title>
-        <line-chart
-          :chartData="weeklyPatientRatioComparisonDataSets"
-          :chartOptions="weeklyPatientRatioComparisonOptions" />
-      </v-card>
-    </v-flex>
-  </v-layout>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            陽性者率の増減推移 (週別)
+          </v-card-title>
+          <line-chart
+            :chartData="weeklyPatientRatioComparisonDataSets"
+            :chartOptions="weeklyPatientRatioComparisonOptions" />
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -109,3 +113,4 @@ export default {
   },
 };
 </script>
+
