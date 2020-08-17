@@ -31,6 +31,7 @@
     <v-footer
       app
     >
+      Version: {{ version }}
       <v-spacer />
       <span>
         Copyright &copy; 2020 SAW All Rights Reserved.
@@ -41,6 +42,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import pkg from '@/package.json';
 
 export default {
   data() {
@@ -50,6 +52,9 @@ export default {
   },
   computed: {
     ...mapState('routing', ['routes']),
+    version() {
+      return pkg.version;
+    },
   },
 };
 </script>
