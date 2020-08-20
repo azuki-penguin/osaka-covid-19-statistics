@@ -19,6 +19,12 @@ export default function() {
         path: '/weekly',
         component: 'pages/weekly.vue',
       },
+      {
+        title: '年代別の統計情報',
+        name: 'age',
+        path: '/age',
+        component: 'pages/age.vue',
+      },
     ],
   };
 };

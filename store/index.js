@@ -3,6 +3,17 @@ import * as dateFns from 'date-fns';
 
 const DATA_JSON_URL = 'https://raw.githubusercontent.com/codeforosaka/covid19/master/data/data.json';
 
+function parseAge(age)
+{
+  if (/^(\d+)代?$/.test(age)) {
+    return Number(RegExp.$1);
+  } else if (/^未?就学児$/.test(age)) {
+    return 0;
+  } else {
+    return -1;
+  }
+}
+
 export function state() {
   return {
     patientsSummary: [],
@@ -27,7 +38,7 @@ export const mutations = {
   setPatientsDetails(state, { data }) {
     state.patientsDetails = data.map(x => ({
       date: dateFns.parseJSON(x["リリース日"]),
-      age: x["年代"],
+      age: parseAge(x["年代"]),
       gender: x["性別"],
     }));
   },
