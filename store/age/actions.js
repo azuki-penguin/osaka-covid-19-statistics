@@ -1,7 +1,11 @@
 export default {
   loadData({ commit, rootState }) {
-    const { patientsDetails } = rootState;
+    const { patientsDetails, patientsSummary } = rootState;
     commit('setAgePatientsCount', { data: patientsDetails });
+    commit('setAgePatientsTotal', {
+      patientsTotal: patientsSummary,
+      ageData: patientsDetails,
+    });
   },
 };
 
