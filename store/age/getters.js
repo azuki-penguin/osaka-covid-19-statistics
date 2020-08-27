@@ -34,7 +34,18 @@ function getPieChartBackGroundColors(length)
   return colors;
 }
 
+import * as dateFns from 'date-fns';
+
 export default {
+  ageLabels(state) {
+    return _.chain(state.agePatientsCount)
+      .filter(x => x.age >= 0)
+      .map(x => ({
+        age: x.age,
+        label: (x.age > 0) ? `${x.age}代` : '10代未満',
+      }))
+      .value();
+  },
   agePatientsCountDataSets(state) {
     const ageRangeLength = _.chain(state.agePatientsCount)
       .filter(x => x.age >= 0)
@@ -57,6 +68,48 @@ export default {
       title: {
         display: true,
         text: '年代',
+      },
+    };
+  },
+  dailyAgePatientsTotalDatasets(state, getters) {
+    const dailyAgeData = getters.ageLabels.map((ageLabel, index) => ({
+      label: ageLabel.label,
+      type: 'line',
+      lineTension: 0,
+      data: state.dailyAgePatientsTotal.map(
+        data => data.ageCounts.find(x => x.age === ageLabel.age).count ?? 0
+      ),
+      borderColor: getPieChartBackGroundColors(getters.ageLabels.length)[index],
+      order: 1,
+    }));
+    return {
+      labels: state.dailyAgePatientsTotal.map(
+        x => dateFns.format(x.date, 'yyyy/MM/dd')
+      ),
+      datasets: _.union(dailyAgeData, [
+        {
+          label: '検査人数',
+          data: state.dailyAgePatientsTotal.map(x => x.count),
+          backgroundColor: 'rgb(96, 96, 96)',
+          order: 2,
+        },
+      ]),
+    };
+  },
+  dailyAgePatientsTotalOptions(state) {
+    return {
+      scales: {
+        xAxes: [
+          {
+            scaleLabel: { display: true, labelString: '日付' },
+          },
+        ],
+        yAxes: [
+          {
+            scaleLabel: { display: true, labelString: '検査数 (人)' },
+            ticks: { beginAtZero: true, stepSize: 100 },
+          },
+        ],
       },
     };
   },
