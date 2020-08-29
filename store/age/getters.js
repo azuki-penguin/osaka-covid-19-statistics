@@ -74,6 +74,39 @@ export default {
   dailyAgePatientsTotalDatasets(state, getters) {
     const dailyAgeData = getters.ageLabels.map((ageLabel, index) => ({
       label: ageLabel.label,
+      lineTension: 0,
+      data: state.dailyAgePatientsTotal.map(
+        data => data.ageCounts.find(x => x.age === ageLabel.age).count ?? 0
+      ),
+      borderColor: getPieChartBackGroundColors(getters.ageLabels.length)[index],
+    }));
+    return {
+      labels: state.dailyAgePatientsTotal.map(
+        x => dateFns.format(x.date, 'yyyy/MM/dd')
+      ),
+      datasets: dailyAgeData,
+    };
+  },
+  dailyAgePatientsTotalOptions(state) {
+    return {
+      scales: {
+        xAxes: [
+          {
+            scaleLabel: { display: true, labelString: '日付' },
+          },
+        ],
+        yAxes: [
+          {
+            scaleLabel: { display: true, labelString: '陽性者数 (人)' },
+            ticks: { beginAtZero: true, stepSize: 5 },
+          },
+        ],
+      },
+    };
+  },
+  dailyAgePatientsTotalWithInspectationDatasets(state, getters) {
+    const dailyAgeData = getters.ageLabels.map((ageLabel, index) => ({
+      label: ageLabel.label,
       type: 'line',
       lineTension: 0,
       data: state.dailyAgePatientsTotal.map(
@@ -96,7 +129,7 @@ export default {
       ]),
     };
   },
-  dailyAgePatientsTotalOptions(state) {
+  dailyAgePatientsTotalWithInspectationOptions(state) {
     return {
       scales: {
         xAxes: [
