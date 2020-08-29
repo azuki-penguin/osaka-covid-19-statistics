@@ -19,9 +19,22 @@
           <v-card-title class="text-subtitle-1">
             年代別の感染者数の推移 (日別)
           </v-card-title>
-          <combo-chart
+          <line-chart
             :chartData="dailyAgePatientsTotalDatasets"
             :chartOptions="dailyAgePatientsTotalOptions" />
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row justify="center">
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            検査数と年代別の感染者数の推移 (日別)
+          </v-card-title>
+          <combo-chart
+            :chartData="dailyAgePatientsTotalWithInspectationDatasets"
+            :chartOptions="dailyAgePatientsTotalWithInspectationOptions" />
         </v-card>
       </v-col>
     </v-row>
@@ -32,6 +45,7 @@
 import { mapState, mapActions, createNamespacedHelpers } from 'vuex';
 import PieChart from '~/components/PieChart.vue';
 import ComboChart from '~/components/ComboChart.vue';
+import LineChart from '~/components/LineChart.vue';
 
 const {
   mapGetters: mapGettersOfAge,
@@ -51,6 +65,8 @@ export default {
       'agePatientsCountOptions',
       'dailyAgePatientsTotalDatasets',
       'dailyAgePatientsTotalOptions',
+      'dailyAgePatientsTotalWithInspectationDatasets',
+      'dailyAgePatientsTotalWithInspectationOptions',
     ]),
   },
   async mounted() {
@@ -60,6 +76,7 @@ export default {
   components: {
    PieChart,
    ComboChart,
+   LineChart,
   },
 };
 </script>
