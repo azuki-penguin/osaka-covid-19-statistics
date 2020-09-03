@@ -6,6 +6,11 @@ export default {
       patientsTotal: patientsSummary,
       ageData: patientsDetails,
     });
+    commit('setWeeklyAgePatientTotal', {
+      patientsTotal: patientsSummary,
+      ageData: patientsDetails,
+    });
+    commit('calculateWeeklyAgePatientTotalAverage');
   },
 };
 
