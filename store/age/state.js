@@ -3,6 +3,7 @@ export default function() {
     agePatientsCount: [],
     dailyAgePatientsTotal: [],
     weeklyAgePatientsTotal: [],
+    weeklyAgePatientsTotalAverage: [],
   };
 };
 

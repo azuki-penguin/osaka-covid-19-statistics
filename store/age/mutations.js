@@ -44,5 +44,20 @@ export default {
       }))
       .value();
   },
+  calculateWeeklyAgePatientTotalAverage(state) {
+    state.weeklyAgePatientsTotalAverage =
+      state.weeklyAgePatientsTotal.map(x => ({
+        ...x,
+        ageCounts: x.ageCounts.map(data => ({
+          age: data.age,
+          count: Math.round(
+            (data.count / dateFns.differenceInDays(x.lastDate, x.firstDate))
+              * 100) / 100,
+        })),
+        totalCounts: Math.round(
+          (x.totalCounts / dateFns.differenceInDays(x.lastDate, x.firstDate))
+            * 100) / 100,
+      }));
+  },
 };
 
