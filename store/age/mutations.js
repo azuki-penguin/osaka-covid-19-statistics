@@ -26,5 +26,23 @@ export default {
         .value(),
     }));
   },
+  setWeeklyAgePatientTotal(state, { patientsTotal, ageData }) {
+    state.weeklyAgePatientsTotal = _.chain(state.dailyAgePatientsTotal)
+      .chunk(7)
+      .map(x => ({
+        firstDate: _.minBy(x, 'date').date,
+        lastDate: _.maxBy(x, 'date').date,
+        totalCounts: _.sumBy(x, 'count'),
+        ageCounts: x.reduce((acc, val) => _.chain(acc)
+          .union(val.ageCounts), [])
+          .groupBy('age')
+          .map((value, key) => ({
+            age: Number(key),
+            count: value.reduce((acc, val) => acc + (val.count ?? 0), 0),
+          }))
+          .value(),
+      }))
+      .value();
+  },
 };
 
