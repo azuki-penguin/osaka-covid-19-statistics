@@ -38,7 +38,20 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+
+    <v-row justify="center">
+      <v-col sm=12>
+        <v-card>
+          <v-card-title class="text-subtitle-1">
+            週平均の検査数と年代別の週平均の陽性者数の推移 (週別)
+          </v-card-title>
+          <combo-chart
+            :chartData="weeklyAgePatientsTotalAverageWithInspectationDatasets"
+            :chartOptions="weeklyAgePatientsTotalAverageWithInspectationOptions" />
+        </v-card>
+      </v-col>
+    </v-row>
+ </v-container>
 </template>
 
 <script>
@@ -67,6 +80,8 @@ export default {
       'dailyAgePatientsTotalOptions',
       'dailyAgePatientsTotalWithInspectationDatasets',
       'dailyAgePatientsTotalWithInspectationOptions',
+      'weeklyAgePatientsTotalAverageWithInspectationDatasets',
+      'weeklyAgePatientsTotalAverageWithInspectationOptions',
     ]),
   },
   async mounted() {
