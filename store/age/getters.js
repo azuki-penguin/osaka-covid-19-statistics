@@ -146,6 +146,41 @@ export default {
       },
     };
   },
+  weeklyAgePatientsTotalAverageDatasets(state, getters) {
+    const weeklyAgeData = getters.ageLabels.map((ageLabel, index) => ({
+      label: ageLabel.label,
+      lineTension: 0,
+      data: state.weeklyAgePatientsTotalAverage.map(
+        data => data.ageCounts.find(x => x.age === ageLabel.age).count ?? 0
+      ),
+      borderColor: getPieChartBackGroundColors(getters.ageLabels.length)[index],
+    }));
+    return {
+      labels: state.weeklyAgePatientsTotal.map(x => `${
+        dateFns.format(x.firstDate, 'yyyy/MM/dd')
+      } ~ ${
+        dateFns.format(x.lastDate, 'yyyy/MM/dd')
+      }`),
+      datasets: weeklyAgeData,
+    };
+  },
+  weeklyAgePatientsTotalAverageOptions(state) {
+    return {
+      scales: {
+        xAxes: [
+          {
+            scaleLabel: { display: true, labelString: '日付' },
+          },
+        ],
+        yAxes: [
+          {
+            scaleLabel: { display: true, labelString: '検査数 (人)' },
+            ticks: { beginAtZero: true, stepSize: 5 },
+          },
+        ],
+      },
+    };
+  },
   weeklyAgePatientsTotalAverageWithInspectationDatasets(state, getters) {
     const weeklyAgeData = getters.ageLabels.map((ageLabel, index) => ({
       label: ageLabel.label,
