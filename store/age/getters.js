@@ -174,7 +174,7 @@ export default {
         ],
         yAxes: [
           {
-            scaleLabel: { display: true, labelString: '検査数 (人)' },
+            scaleLabel: { display: true, labelString: '陽性者数 (人)' },
             ticks: { beginAtZero: true, stepSize: 5 },
           },
         ],
@@ -200,7 +200,7 @@ export default {
       }`),
       datasets: _.union(weeklyAgeData, [
         {
-          label: '検査人数',
+          label: '陽性者数',
           data: state.weeklyAgePatientsTotalAverage.map(x => x.totalCounts),
           backgroundColor: 'rgb(96, 96, 96)',
           order: 2,
@@ -218,7 +218,7 @@ export default {
         ],
         yAxes: [
           {
-            scaleLabel: { display: true, labelString: '検査数 (人)' },
+            scaleLabel: { display: true, labelString: '陽性者数 (人)' },
             ticks: { beginAtZero: true, stepSize: 10 },
           },
         ],
