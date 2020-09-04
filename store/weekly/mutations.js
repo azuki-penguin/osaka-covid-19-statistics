@@ -9,6 +9,7 @@ export default {
     state.weeklyPatientTotal = _.chain(data)
       .chunk(7)
       .map(x => ({
+        length: x.length,
         firstDate: _.minBy(x, val => val.date).date,
         lastDate: _.maxBy(x, val => val.date).date,
         count: x.reduce((acc, val) => val.count + acc, 0),
@@ -19,6 +20,7 @@ export default {
     state.weeklyInspectionTotal = _.chain(data)
       .chunk(7)
       .map(x => ({
+        length: x.length,
         firstDate: _.minBy(x, val => val.date).date,
         lastDate: _.maxBy(x, val => val.date).date,
         count: x.reduce((acc, val) => val.count + acc, 0),
@@ -28,9 +30,7 @@ export default {
   calculateWeeklyPatientTotalAverate(state) {
     state.weeklyPatientTotalAverage = state.weeklyPatientTotal.map(x => ({
       ...x,
-      count: Math.round(
-        (x.count / dateFns.differenceInDays(x.lastDate, x.firstDate)) * 100
-      ) / 100,
+      count: Math.round((x.count / x.length) * 100) / 100,
     }));
   },
   calculateWeeklyInspectionTotalAverate(state) {
@@ -38,8 +38,7 @@ export default {
       state.weeklyInspectionTotal.map(x => ({
         ...x,
         count: Math.round(
-          (x.count / dateFns.differenceInDays(x.lastDate, x.firstDate))
-            * 100) / 100,
+          (x.count / x.length) * 100) / 100,
       }));
   },
   calculateWeeklyPatientRatio(state) {

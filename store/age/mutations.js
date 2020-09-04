@@ -30,6 +30,7 @@ export default {
     state.weeklyAgePatientsTotal = _.chain(state.dailyAgePatientsTotal)
       .chunk(7)
       .map(x => ({
+        length: x.length,
         firstDate: _.minBy(x, 'date').date,
         lastDate: _.maxBy(x, 'date').date,
         totalCounts: _.sumBy(x, 'count'),
@@ -50,13 +51,9 @@ export default {
         ...x,
         ageCounts: x.ageCounts.map(data => ({
           age: data.age,
-          count: Math.round(
-            (data.count / dateFns.differenceInDays(x.lastDate, x.firstDate))
-              * 100) / 100,
+          count: Math.round((data.count / x.length) * 100) / 100,
         })),
-        totalCounts: Math.round(
-          (x.totalCounts / dateFns.differenceInDays(x.lastDate, x.firstDate))
-            * 100) / 100,
+        totalCounts: Math.round((x.totalCounts / x.length) * 100) / 100,
       }));
   },
 };
