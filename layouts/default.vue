@@ -23,6 +23,20 @@
       app >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>大阪府新型コロナウイルス統計情報</v-toolbar-title>
+      <v-spacer />
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            href="https://github.com/azuki-penguin/osaka-covid-19-statistics"
+            target="_blank"
+            v-bind="attrs"
+            v-on="on">
+            <v-icon>mdi-github</v-icon>
+          </v-btn>
+        </template>
+        <span>GitHub Repository</span>
+      </v-tooltip>
     </v-app-bar>
 
     <v-content>
