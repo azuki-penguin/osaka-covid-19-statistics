@@ -216,5 +216,21 @@ export default {
       },
     };
   },
+  dailyPatientLastThirtyDaysDataSets(state) {
+    const index = state.dailyPatientTotal.length - 30;
+    return {
+      labels: state.dailyPatientTotal.map(
+        x => dateFns.format(x.date, 'yyyy/MM/dd')
+      ).slice(index),
+      datasets: [
+        {
+          label: '感染者数',
+          lineTension: 0,
+          data: state.dailyPatientTotal.map(x => x.count).slice(index),
+          borderColor: 'rgba(255, 255, 255, 1)',
+        },
+      ],
+    };
+  },
 };
 
