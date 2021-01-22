@@ -232,5 +232,23 @@ export default {
       ],
     };
   },
+  dailyPatientRatioLastThirtyDataSets(state) {
+    const index = state.dailyPatientRatio.length - 30;
+    return {
+      labels: state.dailyPatientRatio.map(
+        x => dateFns.format(x.date, 'yyyy/MM/dd')
+      ).slice(index),
+      datasets: [
+        {
+          label: '感染者率',
+          lineTension: 0,
+          data: state.dailyPatientRatio.map(
+            x => Math.round(x.count * 10000) / 100
+          ).slice(index),
+          borderColor: 'rgba(255, 255, 255, 1)',
+        },
+      ],
+    };
+  },
 };
 

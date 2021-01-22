@@ -76,6 +76,16 @@
               :chartOptions="dailyPatientTotalOptions" />
         </v-card>
       </v-col>
+      <v-col sm=12>
+        <v-card>
+          <v-card-title>
+            直近30日の陽性者率の推移 (日別)
+          </v-card-title>
+          <line-chart
+            :chartData="dailyPatientRatioLastThirtyDataSets"
+            :chartOptions="dailyPatientRatioOptions" />
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -112,6 +122,7 @@ export default {
       'dailyPatientRatioComparisonDataSets',
       'dailyPatientRatioComparisonOptions',
       'dailyPatientLastThirtyDaysDataSets',
+      'dailyPatientRatioLastThirtyDataSets',
     ]),
   },
   async mounted() {
