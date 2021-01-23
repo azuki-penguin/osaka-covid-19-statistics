@@ -78,6 +78,16 @@
       </v-col>
       <v-col sm=12>
         <v-card>
+          <v-card-title class="text-subtitle-1">
+            直近30日の検査数と陽性者数の推移 (日別)
+          </v-card-title>
+          <combo-chart
+            :chartData="dailyInspectionLastThirtyDaysDataSets"
+            :chartOptions="dailyInspectionTotalOptions" />
+        </v-card>
+      </v-col>
+      <v-col sm=12>
+        <v-card>
           <v-card-title>
             直近30日の陽性者率の推移 (日別)
           </v-card-title>
@@ -123,6 +133,7 @@ export default {
       'dailyPatientRatioComparisonOptions',
       'dailyPatientLastThirtyDaysDataSets',
       'dailyPatientRatioLastThirtyDataSets',
+      'dailyInspectionLastThirtyDaysDataSets',
     ]),
   },
   async mounted() {

@@ -250,5 +250,30 @@ export default {
       ],
     };
   },
+  dailyInspectionLastThirtyDaysDataSets(state) {
+    const index = state.dailyInspectionTotal.length - 30;
+    return {
+      labels: state.dailyInspectionTotal.map(
+        x => dateFns.format(x.date, 'yyyy/MM/dd')
+      ).slice(index),
+      datasets: [
+        {
+          label: '検査人数',
+          data: state.dailyInspectionTotal.map(x => x.count).slice(index),
+          backgroundColor: 'rgba(48, 128, 255, 1)',
+          order: 2,
+        },
+        {
+          label: '感染者数',
+          type: 'line',
+          lineTension: 0,
+          data: state.dailyPatientTotal.map(x => x.count).slice(index),
+          borderColor: 'rgba(255, 255, 255, 1)',
+          order: 1,
+        },
+      ],
+    };
+  },
+
 };
 
