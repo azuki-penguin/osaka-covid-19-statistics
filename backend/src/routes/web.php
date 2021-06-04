@@ -13,6 +13,7 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'api/jp'], function () use ($router) {
+    $router->get('death-cases', 'JpGovApiController@getDeathCases');
 });
+
