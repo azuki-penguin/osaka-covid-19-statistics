@@ -27,4 +27,34 @@ class JpGovApiController extends Controller
     {
         return $this->apiService->getDeathCases();
     }
+
+    /**
+     * get positive cases count and total each day.
+     *
+     * @return Illuminate\SUpport\Collection
+     */
+    public function getPositiveCases(): Collection
+    {
+        return $this->apiService->getPositiveCases();
+    }
+
+    /**
+     * get severe cases count and total each day.
+     *
+     * @return Illuminate\SUpport\Collection
+     */
+    public function getSevereCases(): Collection
+    {
+        return $this->apiService->getSevereCases();
+    }
+
+    /**
+     * get test cases count and total each day.
+     *
+     * @return Illuminate\SUpport\Collection
+     */
+    public function getTestCases(): Collection
+    {
+        return $this->apiService->getTestCases();
+    }
 }

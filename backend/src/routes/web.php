@@ -15,5 +15,8 @@
 
 $router->group(['prefix' => 'api/jp'], function () use ($router) {
     $router->get('death-cases', 'JpGovApiController@getDeathCases');
+    $router->get('positive-cases', 'JpGovApiController@getPositiveCases');
+    $router->get('severe-cases', 'JpGovApiController@getSevereCases');
+    $router->get('test-cases', 'JpGovApiController@getTestCases');
 });
 
