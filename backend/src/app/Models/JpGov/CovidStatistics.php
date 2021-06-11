@@ -5,20 +5,24 @@ use Illuminate\Support\Collection;
 
 class CovidStatistics
 {
+    private Collection $deathCases;
+    private Collection $positiveCases;
+    private Collection $severeCases;
+    private Collection $testCases;
+
     /**
-     * calculate each death count from total
-     *  and return death count and total for each day.
+     * calculate each death count from total for each day.
      *
      * @param array $data
-     * @return Illuminate\Support\Collection
+     * @return void
      */
-    public static function getDeathCases(array $data): Collection
+    public function setDeathCasesData(array $data): void
     {
-        return collect($data)
+        $this->deathCases = collect($data)
             ->map(function($value, $index) use ($data) {
                 $prevDeathCases = $index > 0 ? intval($data[$index - 1]['死亡者数']) : 0;
                 return [
-                    'date' => $value['日付'],
+                    'date' => new \DateTime($value['日付']),
                     'count' => intval($value['死亡者数']) - $prevDeathCases,
                     'total' => intval($value['死亡者数']),
                 ];
@@ -26,20 +30,29 @@ class CovidStatistics
     }
 
     /**
-      * calculate each positive total
-      *  and return positive count and total for each day.
-      *
-      * @param array $data
-      * @return Illuminate\Support\Collection
-      */
-    public static function getPositiveCases(array $data): Collection
+     * return daily death count and total for each day.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getDailyDeathCases(): Collection
+    {
+        return $this->deathCases;
+    }
+
+    /**
+     * calculate each positive total from count for each day.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function setPositiveCasesData(array $data): void
     {
         $totalPositiveCases = 0;
-        return collect($data)
+        $this->positiveCases = collect($data)
             ->map(function($value) use (&$totalPositiveCases) {
                 $totalPositiveCases += intval($value['PCR 検査陽性者数(単日)']);
                 return [
-                    'date' => $value['日付'],
+                    'date' => new \DateTime($value['日付']),
                     'count' => intval($value['PCR 検査陽性者数(単日)']),
                     'total' => $totalPositiveCases,
                 ];
@@ -47,42 +60,71 @@ class CovidStatistics
     }
 
     /**
-     * calclate each positive count from total
-     *  and return severe count and total for each days
+      * return daily positive count and total for each day.
+      *
+      * @return Illuminate\Support\Collection
+      */
+    public function getDailyPositiveCases(): Collection
+    {
+        return $this->positiveCases;
+    }
+
+    /**
+     * calclate each positive count from total for each days
      *
      * @param array $data
-     * @return Illuminate\Support\Collection
+     * @return void
      */
-    public static function getSevereCases(array $data): Collection
+    public function setSevereCasesData(array $data): void
     {
-        return collect($data)
+        $this->severeCases =  collect($data)
             ->map(function($value, $index) use ($data) {
                 return [
-                    'date' => $value['日付'],
+                    'date' => new \DateTime($value['日付']),
                     'total' => intval($value['重症者数']),
                 ];
             });
     }
 
     /**
-      * calculate each test total
-      *  and return test count and total for each day.
+     * return daily severe count and total for each days
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getDailySevereCases(): Collection
+    {
+        return $this->severeCases;
+    }
+
+    /**
+      * calculate each test count and total for each day.
       *
       * @param array $data
-      * @return Illuminate\Support\Collection
+      * @return void
       */
-    public static function getTestCases(array $data): Collection
+
+    public function setTestCasesData(array $data): void
     {
         $totalTestCases = 0;
-        return collect($data)
+        $this->testCases =  collect($data)
             ->map(function($value) use (&$totalTestCases) {
                 $totalTestCases += intval($value['PCR 検査実施件数(単日)']);
                 return [
-                    'date' => $value['日付'],
+                    'date' => new \DateTime($value['日付']),
                     'count' => intval($value['PCR 検査実施件数(単日)']),
                     'total' => $totalTestCases,
                 ];
             });
+    }
+
+    /**
+      * return test count and total for each day.
+      *
+      * @return Illuminate\Support\Collection
+      */
+    public function getDailyTestCases(): Collection
+    {
+        return $this->testCases;
     }
 }
 

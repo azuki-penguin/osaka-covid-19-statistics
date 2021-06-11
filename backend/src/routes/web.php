@@ -14,9 +14,11 @@
 */
 
 $router->group(['prefix' => 'api/jp'], function () use ($router) {
-    $router->get('death-cases', 'JpGovApiController@getDeathCases');
-    $router->get('positive-cases', 'JpGovApiController@getPositiveCases');
-    $router->get('severe-cases', 'JpGovApiController@getSevereCases');
-    $router->get('test-cases', 'JpGovApiController@getTestCases');
+    $router->group(['prefix' => 'daily'], function () use ($router) {
+        $router->get('death-cases', 'JpGovApiController@getDailyDeathCases');
+        $router->get('positive-cases', 'JpGovApiController@getDailyPositiveCases');
+        $router->get('severe-cases', 'JpGovApiController@getDailySevereCases');
+        $router->get('test-cases', 'JpGovApiController@getDailyTestCases');
+    });
 });
 

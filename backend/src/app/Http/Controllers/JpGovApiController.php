@@ -23,9 +23,9 @@ class JpGovApiController extends Controller
      *
      * @return Illuminate\Support\Collection
      */
-    public function getDeathCases(): Collection
+    public function getDailyDeathCases(): Collection
     {
-        return $this->apiService->getDeathCases();
+        return $this->apiService->getDailyDeathCases();
     }
 
     /**
@@ -33,9 +33,9 @@ class JpGovApiController extends Controller
      *
      * @return Illuminate\SUpport\Collection
      */
-    public function getPositiveCases(): Collection
+    public function getDailyPositiveCases(): Collection
     {
-        return $this->apiService->getPositiveCases();
+        return $this->apiService->getDailyPositiveCases();
     }
 
     /**
@@ -43,9 +43,9 @@ class JpGovApiController extends Controller
      *
      * @return Illuminate\SUpport\Collection
      */
-    public function getSevereCases(): Collection
+    public function getDailySevereCases(): Collection
     {
-        return $this->apiService->getSevereCases();
+        return $this->apiService->getDailySevereCases();
     }
 
     /**
@@ -53,8 +53,8 @@ class JpGovApiController extends Controller
      *
      * @return Illuminate\SUpport\Collection
      */
-    public function getTestCases(): Collection
+    public function getDailyTestCases(): Collection
     {
-        return $this->apiService->getTestCases();
+        return $this->apiService->getDailyTestCases();
     }
 }

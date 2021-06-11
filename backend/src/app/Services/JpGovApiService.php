@@ -8,6 +8,10 @@ use App\Models\JpGov\CovidStatistics;
 
 class JpGovApiService
 {
+    private ApiKeyService $apiKeyService;
+    private string $apiRootUrl;
+    private CovidStatistics $covidStatistics;
+
     /**
      * create an instance of JpGovApiService 
      *
@@ -18,6 +22,7 @@ class JpGovApiService
     {
         $this->apiKeyService = $apiKeyService;
         $this->apiRootUrl = 'https://api.opendata.go.jp/mhlw/';
+        $this->covidStatistics = new CovidStatistics();
     }
 
     /**
@@ -25,7 +30,7 @@ class JpGovApiService
      *
      * @return Illuminate\Support\Collection
      */
-    public function getDeathCases(): Collection
+    public function getDailyDeathCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
         $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
@@ -35,7 +40,8 @@ class JpGovApiService
             ['query' => ['apikey' => $apiKey]]
         );
         $data = json_decode($res->getBody(), true);
-        return CovidStatistics::getDeathCases($data);
+        $this->covidStatistics->setDeathCasesData($data);
+        return $this->covidStatistics->getDailyDeathCases();
     }
 
     /**
@@ -44,7 +50,7 @@ class JpGovApiService
      *
      * @return Illuminate\Support\Collection
      */
-    public function getPositiveCases(): Collection
+    public function getDailyPositiveCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
         $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
@@ -54,14 +60,15 @@ class JpGovApiService
             ['query' => ['apikey' => $apiKey]],
         );
         $data = json_decode($res->getBody(), true);
-        return CovidStatistics::getPositiveCases($data);
+        $this->covidStatistics->setPositiveCasesData($data);
+        return $this->covidStatistics->getDailyPositiveCases();
     }
 
     /**
      * fetch severe case data from api
      *  and get converted severe cases data.
      */
-    public function getSevereCases(): Collection
+    public function getDailySevereCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
         $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
@@ -71,7 +78,8 @@ class JpGovApiService
             ['query' => ['apikey' => $apiKey]],
         );
         $data = json_decode($res->getBody(), true);
-        return CovidStatistics::getSevereCases($data);
+        $this->covidStatistics->setSevereCasesData($data);
+        return $this->covidStatistics->getDailySevereCases();
     }
 
     /**
@@ -80,7 +88,7 @@ class JpGovApiService
      *
      * @return Illuminate\Support\Collection
      */
-    public function getTestCases(): Collection
+    public function getDailyTestCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
         $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
@@ -90,7 +98,8 @@ class JpGovApiService
             ['query' => ['apikey' => $apiKey]],
         );
         $data = json_decode($res->getBody(), true);
-        return CovidStatistics::getTestCases($data);
+        $this->covidStatistics->setTestCasesData($data);
+        return $this->covidStatistics->getDailyTestCases();
     }
 }
 
