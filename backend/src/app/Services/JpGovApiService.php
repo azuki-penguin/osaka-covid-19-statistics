@@ -45,6 +45,25 @@ class JpGovApiService
     }
 
     /**
+     * fetch death case data from api and get converted weekly death cases data.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyDeathCases(): Collection
+    {
+        $apiKey = $this->apiKeyService->getApiKey();
+        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
+        $res = $client->request(
+            'GET',
+            'death-cases',
+            ['query' => ['apikey' => $apiKey]]
+        );
+        $data = json_decode($res->getBody(), true);
+        $this->covidStatistics->setDeathCasesData($data);
+        return $this->covidStatistics->getWeeklyDeathCases();
+    }
+
+    /**
      * fetch positive case data from api
      *  and get converted positive cases data.
      *

@@ -29,6 +29,16 @@ class JpGovApiController extends Controller
     }
 
     /**
+     * get death case count and total each weeks.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyDeathCases(): Collection
+    {
+        return $this->apiService->getWeeklyDeathCases();
+    }
+
+    /**
      * get positive cases count and total each day.
      *
      * @return Illuminate\SUpport\Collection

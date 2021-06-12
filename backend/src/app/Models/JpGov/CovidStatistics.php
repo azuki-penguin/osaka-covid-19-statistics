@@ -40,6 +40,28 @@ class CovidStatistics
     }
 
     /**
+     * return weekly death count and total for eachweeks.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyDeathCases(): Collection
+    {
+        return $this->deathCases
+            ->chunk(7)
+            ->map(function($weekData) {
+                return [
+                    'period' => [
+                        'begin' => $weekData->min('date'),
+                        'end' => $weekData->max('date'),
+                    ],
+                    'average' => $weekData->average('count'),
+                    'weeklyTotal' => $weekData->sum('count'),
+                    'total' => $weekData->last()['total'],
+                ];
+            });
+    }
+
+    /**
      * calculate each positive total from count for each day.
      *
      * @param array $data
