@@ -23,6 +23,7 @@ $router->group(['prefix' => 'api/jp'], function () use ($router) {
 
     $router->group(['prefix' => 'weekly'], function() use ($router) {
         $router->get('death-cases', 'JpGovApiController@getWeeklyDeathCases');
+        $router->get('positive-cases', 'JpGovApiController@getWeeklyPositiveCases');
     });
 });
 

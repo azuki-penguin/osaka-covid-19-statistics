@@ -49,6 +49,16 @@ class JpGovApiController extends Controller
     }
 
     /**
+     * get positive case count and total each weeks.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyPositiveCases(): Collection
+    {
+        return $this->apiService->getWeeklyPositiveCases();
+    }
+
+    /**
      * get severe cases count and total each day.
      *
      * @return Illuminate\SUpport\Collection

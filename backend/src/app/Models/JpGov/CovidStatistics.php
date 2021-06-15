@@ -92,6 +92,28 @@ class CovidStatistics
     }
 
     /**
+     * return weekly positive count and total for eachweeks.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyPositiveCases(): Collection
+    {
+        return $this->positiveCases
+            ->chunk(7)
+            ->map(function($weekData) {
+                return [
+                    'period' => [
+                        'begin' => $weekData->min('date'),
+                        'end' => $weekData->max('date'),
+                    ],
+                    'average' => $weekData->average('count'),
+                    'weeklyTotal' => $weekData->sum('count'),
+                    'total' => $weekData->last()['total'],
+                ];
+            });
+    }
+
+    /**
      * calclate each positive count from total for each days
      *
      * @param array $data
