@@ -121,6 +121,26 @@ class JpGovApiService
     }
 
     /**
+     * fetch positive case data from api
+     *  and get converted weekly severe cases data.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklySevereCases(): Collection
+    {
+        $apiKey = $this->apiKeyService->getApiKey();
+        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
+        $res = $client->request(
+            'GET',
+            'severe-cases',
+            ['query' => ['apikey' => $apiKey]],
+        );
+        $data = json_decode($res->getBody(), true);
+        $this->covidStatistics->setSevereCasesData($data);
+        return $this->covidStatistics->getWeeklySevereCases();
+    }
+
+    /**
      * fetch test case data from api
      *  and get converted test cases data.
      *

@@ -141,6 +141,26 @@ class CovidStatistics
     }
 
     /**
+     * return weekly severe average for each days
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklySevereCases(): Collection
+    {
+        return $this->severeCases
+            ->chunk(7)
+            ->map(function ($weekData) {
+                return [
+                    'period' => [
+                        'begin' => $weekData->min('date'),
+                        'end' => $weekData->max('date'),
+                    ],
+                    'average' => $weekData->average('total'),
+                ];
+            });
+    }
+
+    /**
       * calculate each test count and total for each day.
       *
       * @param array $data
