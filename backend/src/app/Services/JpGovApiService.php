@@ -9,8 +9,8 @@ use App\Models\JpGov\CovidStatistics;
 class JpGovApiService
 {
     private ApiKeyService $apiKeyService;
-    private string $apiRootUrl;
     private CovidStatistics $covidStatistics;
+    private HttpClient $httpClient;
 
     /**
      * create an instance of JpGovApiService 
@@ -21,8 +21,9 @@ class JpGovApiService
     public function __construct(ApiKeyService $apiKeyService)
     {
         $this->apiKeyService = $apiKeyService;
-        $this->apiRootUrl = 'https://api.opendata.go.jp/mhlw/';
         $this->covidStatistics = new CovidStatistics();
+        $apiRootUrl = 'https://api.opendata.go.jp/mhlw/';
+        $this->httpClient = new HttpClient(['base_uri' => $apiRootUrl]);
     }
 
     /**
@@ -33,8 +34,7 @@ class JpGovApiService
     public function getDailyDeathCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'death-cases',
             ['query' => ['apikey' => $apiKey]]
@@ -52,8 +52,7 @@ class JpGovApiService
     public function getWeeklyDeathCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'death-cases',
             ['query' => ['apikey' => $apiKey]]
@@ -72,8 +71,7 @@ class JpGovApiService
     public function getDailyPositiveCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'positive-cases',
             ['query' => ['apikey' => $apiKey]],
@@ -91,8 +89,7 @@ class JpGovApiService
     public function getWeeklyPositiveCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'positive-cases',
             ['query' => ['apikey' => $apiKey]]
@@ -109,8 +106,7 @@ class JpGovApiService
     public function getDailySevereCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'severe-cases',
             ['query' => ['apikey' => $apiKey]],
@@ -129,8 +125,7 @@ class JpGovApiService
     public function getWeeklySevereCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'severe-cases',
             ['query' => ['apikey' => $apiKey]],
@@ -149,8 +144,7 @@ class JpGovApiService
     public function getDailyTestCases(): Collection
     {
         $apiKey = $this->apiKeyService->getApiKey();
-        $client = new HttpClient(['base_uri' => $this->apiRootUrl]);
-        $res = $client->request(
+        $res = $this->httpClient->request(
             'GET',
             'test-cases',
             ['query' => ['apikey' => $apiKey]],
