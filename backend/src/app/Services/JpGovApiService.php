@@ -153,5 +153,24 @@ class JpGovApiService
         $this->covidStatistics->setTestCasesData($data);
         return $this->covidStatistics->getDailyTestCases();
     }
+
+    /**
+     * fetch test case data from api
+     *  and get converted weekly test cases data.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyTestCases(): Collection
+    {
+        $apiKey = $this->apiKeyService->getApiKey();
+        $res = $this->httpClient->request(
+            'GET',
+            'test-cases',
+            ['query' => ['apikey' => $apiKey]],
+        );
+        $data = json_decode($res->getBody(), true);
+        $this->covidStatistics->setTestCasesData($data);
+        return $this->covidStatistics->getWeeklyTestCases();
+    }
 }
 

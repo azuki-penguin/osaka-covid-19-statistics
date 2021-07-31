@@ -190,5 +190,27 @@ class CovidStatistics
     {
         return $this->testCases;
     }
+
+    /**
+     * return weekly test count and total for each weeks.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyTestCases(): Collection
+    {
+        return $this->testCases
+            ->chunk(7)
+            ->map(function ($weekData) {
+                return [
+                    'period' => [
+                        'begin' => $weekData->min('date'),
+                        'end' => $weekData->max('date'),
+                    ],
+                    'average' => $weekData->average('count'),
+                    'weeklyTotal' => $weekData->sum('count'),
+                    'total' => $weekData->last()['total'],
+                ];
+            });
+    }
 }
 

@@ -87,4 +87,14 @@ class JpGovApiController extends Controller
     {
         return $this->apiService->getDailyTestCases();
     }
+
+    /**
+     * get test case count and total each weeks.
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getWeeklyTestCases(): Collection
+    {
+        return $this->apiService->getWeeklyTestCases();
+    }
 }
